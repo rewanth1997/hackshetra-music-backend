@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<head>
+    The title of the document (test text)
+</head>
+<body>
+<div id="fb-root"></div>
+<button onclick="login()">Login</button>
+<button onclick="sendRequest()">Test</button>
+<script>
+window.fbAsyncInit = function() {
+// init the Facebook JavaScript SDK
+    FB.init({
+        appId       : '1852533855031236',
+        channelUrl  : null,
+        status      : true,
+        cookie      : false,
+        xfbml       : false
+    });
+
+    FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+            // connected
+            testAPI();
+        } else if (response.status === 'not_authorized') {
+            // not authorized
+            login();
+        } else {
+            // not_logged_in
+            login();
+        }
+    });
+};
+
+function login() {
+    FB.login(function(response) {
+        if (response.authResponse) {
+            // connected
+            testAPI();
+        } else {
+            // cancelled
+        }
+    }, { scope: 'public_profile,user_friends'});
+}
+
+function testAPI() {
+    console.log('Welcome!  Fetching your information... ');
+    FB.api('/me', function(response) {
+        console.log('Good to see you, ' + response.name + '.');
+    });
+}
+
+(function(d){
+    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement('script'); js.id = id; js.async = true;
+    js.src = "//connect.facebook.net/en_US/all.js";
+    ref.parentNode.insertBefore(js, ref);
+}(document));
+
+function sendRequest() {
+    FB.ui({
+        method: 'apprequests',
+        message: 'TESTING'
+    }, function(response){
+
+      console.log(response);
+    });
+}
+</script>
+
+</body>
+</html>
