@@ -8,9 +8,9 @@
 <div id="fb-root"></div>
 
 <button onclick="login()">Login</button>
-<button onclick="sendRequest()">Test</button>
+<button onclick="sendRequest()">Send Requests</button>
 <button onclick="deleteApp()">Delete app data</button>
-
+<button onclick="main()">Goto Main App</button>
 <script>
 window.fbAsyncInit = function() {
 // init the Facebook JavaScript SDK
@@ -44,14 +44,15 @@ function login() {
         } else {
             // cancelled
         }
-    }, { scope: 'public_profile,user_friends'});
+    }, { scope: 'user_about_me,publish_actions,user_actions.music,email,user_friends,read_custom_friendlists,user_likes'});
+    
 }
 
 function testAPI() {
     console.log('Welcome!  Fetching your information... ');
     FB.api('/me', function(response) {
         console.log('Good to see you, ' + response.name + '.');
-        window.location = 'https://bea771f9.ngrok.io/facebook/auth';
+        //window.location = 'https://bea771f9.ngrok.io/facebook/auth';
     });
 }
 
@@ -83,13 +84,17 @@ function deleteApp() {
                 console.log('Permissions deleted');
             }
         });
+    //login();
 }
 
-</script>
+function main() {
+    window.location="https://bea771f9.ngrok.io/facebook/done";
+}
 
-<button onclick="login()">Login</button>
-<button onclick="sendRequest()">Test</button>
-<button onclick="deleteApp()">Delete app data</button>
+//window.onload=deleteApp;
+//window.onload=login;
+
+</script>
 
 </body>
 </html>
