@@ -4,9 +4,11 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var express = require('express');
+var app = express();
 var debug = require('debug')('hackshetra-music:server');
 var http = require('http');
+var models = require('../models');
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +22,12 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var socket = require('socket.io').listen(server);
+var app = require('../app')(app, socket, express);
+
+models.sequelize.sync().then(function () {
+  server.listen(port);
+});
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -87,4 +95,6 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-}
+  console.log("Magic Happens at port " + addr.port);
+
+};

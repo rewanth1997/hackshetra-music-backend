@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Music</title>
+    <!-- start: CSS -->
+    <link href="resources/bootstrap3/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- end: CSS -->
+    <style>
+        body{
+            text-align: center;
+            color: #FF5722;
+        }
+        .box-header{
+            margin-top: 100px;
+        }
+        .box-content > div{
+            position: relative;
+            display: inline-block;
+            margin: 40px;
+            height: 200px;
+            width: 300px;
+            cursor: pointer;
+            vertical-align: text-top;
+            transition: all 0.5s;
+        }
+        .box-content > div > div{
+            background-color: #0a0c0e;
+            position: absolute;
+            width: 300px;
+            height: 200px;
+            padding: 20px;
+            opacity: 0;
+            top: 200px;
+            -webkit-transition: all 0.5s;
+            -moz-transition: all 0.5s ;
+            -ms-transition: all 0.5s ;
+            -o-transition: all 0.5s ;
+            transition: all 0.5s ;
+        }
+        .box-content > div:hover{
+            transform: scale(1.1);
+            color: #FFCDD2;
+        }
+        .box-content > div:hover > div {
+            opacity: 1;
+            top: 0;
+        }
+        .box-content > div > i {
+            font-size: 100px;
+        }
+        input{
+            outline: none !important;
+            border: none !important;
+            border-radius: 0 !important;
+            border-bottom: 2px solid white !important;
+            padding: 20px !important;
+            background-color: transparent !important;
+            color: orange !important;
+        }
+        .submit{
+            cursor: pointer;
+            background-color: #3efd67;
+            width: 100px;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            margin-left: 80px;
+            font-weight: 900;
+        }
+    </style>
+</head>
+<body>
+    <div class = "login-container">
+        <div class="">
+            <div class="box-header">
+
+            </div>
+            <div class="box-content">
+                <div class="login-option">
+                    <i class="glyphicon glyphicon-bullhorn"></i>
+                    <h3>It's my party</h3>
+                    <div>
+                        <div class="form-row">
+                            <label>Who am I ?</label>
+                            <input id="HostName" type="text"/>
+                        </div>
+                        <div class="submit" onclick="CheckHost()">Get goin</div>
+                    </div>
+                </div>
+                <div class="login-option">
+                    <i class="glyphicon glyphicon-cutlery"></i>
+                    <h3>I was invited here</h3>
+                    <div>
+                        <div class="form-row">
+                            <label>How about a Nickname?</label>
+                            <input id="UserName" type="text"/>
+                        </div>
+                        <div class="submit" onclick="CheckUser()">Get goin</div>
+                        <p>P.S. nicknames are fun</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- start: JavaScript-->
+    <script src="resources/js/jquery-1.9.1.min.js"></script>
+    <script src="resources/js/jquery-migrate-1.0.0.min.js"></script>
+    <script src="resources/js/socket.io.js"></script>
+    <!-- end: JavaScript-->
+    <script>
+          var socket = io();
+          socket.on('userExists',function(data){
+            $('#UserName').val('');
+            alert('Username already exists');
+          });
+
+          socket.on('userSet',function(data){
+            var url = window.location.href,
+                index = url.lastIndexOf('/');
+            window.location.href = url.substr(0, index) + '/user/index.html';
+          });
+
+          function CheckUser() {
+              var user = $('#UserName').val('');
+              socket.emit('setUsername', user);
+          }
+          function CheckHost(){
+              if($('#HostName').val() === 'We Planned it') {
+                  var url = window.location.href,
+                      index = url.lastIndexOf('/');
+                  window.location.href = url.substr(0, index) + '/host/index.html';
+              }
+          }
+    </script>
+</body>
+</html>

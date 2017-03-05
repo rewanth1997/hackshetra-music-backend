@@ -1,0 +1,230 @@
+*{
+    box-sizing: content-box;
+}
+::-webkit-scrollbar{
+    width: 4px;
+}
+
+::-webkit-scrollbar-track-piece{
+    width: 2px;
+    background-color: #2B5797;
+}
+
+::-webkit-scrollbar-thumb{
+    width: 4px;
+    background-color: orange;
+}
+
+body{
+    height: 100vh;
+    overflow-x: hidden;
+    background-color: #2B5797;
+}
+.display{
+    height: 100vh;
+}
+.playlist{
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: auto;
+    text-align: left;
+    border: 0;
+}
+.playlist > .box-content {
+    color: black;
+    height: 92vh;
+    overflow-y: scroll;
+}
+.playlist > .box-content > ul {
+    padding-bottom: 20px;
+}
+.playlist > .box-content > ul > li{
+    cursor: pointer !important;
+    position: relative;
+    overflow: hidden;
+}
+.playlist > .box-content > ul > li > a {
+    z-index: 1 !important;
+}
+.playlist > .box-content > ul > li > a::before{
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 100%;
+    left: 0;
+    background-color: #2B5797;
+    opacity: 0;
+    z-index: -1 !important;
+    -webkit-transition: all 0.5s cubic-bezier(.91,.89,.13,.34);
+    -moz-transition: all 0.5s cubic-bezier(.91,.89,.13,.34) ;
+    -ms-transition: all 0.5s cubic-bezier(.91,.89,.13,.34) ;
+    -o-transition: all 0.5s cubic-bezier(.91,.89,.13,.34) ;
+    transition: all 0.5s cubic-bezier(.91,.89,.13,.34) ;
+}
+.playlist > .box-content > ul > li:hover > a::before{
+    top: 0;
+    opacity: 1;
+}
+.playlist > .box-content > ul > li:hover > .song-info > .music-rating > .icon{
+    color: #ffffff;
+}
+
+.song-info > .music-rating{
+    display: inline-block;
+    float: right;
+    color: #2B5797;
+}
+.song-info > .music-rating > .icon{
+    display: inline-flex;
+    position: relative;
+    color: #2B5797;
+    font-size: 1.6rem;
+    margin-right: 10px;
+    transition: all 0.5s;
+}
+.song-info > .music-rating > .icon > i{
+    color: white;
+    position: absolute;
+    top: -100%;
+    left: 0;
+    opacity: 0.5;
+    font-family: 'SegoeUI Light', sans-serif;
+}
+.music-rating > .icon:hover{
+    transform: scale(1.05);
+    color: yellow !important;
+}
+audio{
+    width: 80%;
+}
+/*Chat box UI*/
+.chat-box {
+    z-index: 99;
+    position: fixed;
+    left: -100vw;
+    margin: 0!important;
+    height: 100vh;
+    overflow: hidden;
+    border: none;
+}
+.chat-now {
+    position: fixed;
+    left: 10px;
+    top: 10px;
+    font-size: 50px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: all 0.5s;
+}
+.chat-now:hover {
+    color: yellow;
+}
+.chat-box > .chats > h1 > .icon{
+    float: right;
+    font-weight: 100;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s ;
+    -ms-transition: all 0.5s ;
+    -o-transition: all 0.5s ;
+    transition: all 0.5s ;
+}
+.chat-box > .chats > h1 > .icon:hover{
+    color: #00b3ee;
+    cursor: pointer;
+}
+.chat-box > div > input{
+    width: 80%;
+    padding: 10px;
+    background-color: rgba(43, 87, 151, 0.2);
+    color: #ffffff;
+    margin-bottom: 0;
+    border-top: 2px solid #2B5797 !important;
+}
+.chat-box > div > button{
+    padding: 10px;
+    width: 30px;
+}
+.chat-box > .chats{
+    left: 0;
+    height: 90vh !important;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.chat-box > .chats > .timeline{
+    height: 80vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.timeslot{
+    height: auto;
+}
+
+/*Party moods show*/
+.display{
+    margin: 0!important;
+    border: none !important;
+    text-align: center !important;
+}
+div.face{
+    text-align: center;
+    height: 300px;
+    width: 300px;
+    margin: 150px auto !important;
+}
+div.face > div.eyes{
+    width: 100%;
+    margin: 30px auto !important;
+}
+div.face > div.eyes > div{
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 100px;
+    border-radius: 45%;
+    background-color: #cccccc;
+    transform: rotate(-10deg);
+    overflow: hidden;
+}
+
+div.eyes > div::after{
+    content: "";
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    position: absolute;
+    margin: 0 auto;
+    bottom: 0;
+    left: 15px;
+    background-color: black!important;
+    animation-name: pupilMovement;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+div.eyes > div:nth-child(1) {
+    margin-right: 50px;
+}
+.smiley{
+    stroke-dashoffset: 100%;
+    stroke-dasharray: 100%;
+    stroke-width: 15px;
+    stroke: yellow;
+    fill: none;
+}
+
+@media (max-width: 767px) {
+    .playlist{
+        margin-left: 0 !important;
+    }
+}
+/*animations*/
+@keyframes pupilMovement {
+    0%   {transform: translateX(5px) translateY(-5px)}
+    25%   {transform: translateX(-5px)  translateY(0px)}
+    50%   {transform: translateX(10px)  translateY(5px)}
+    75%   {transform: translateX(10px)}
+    100%   {transform: translateX(0px)}
+}
